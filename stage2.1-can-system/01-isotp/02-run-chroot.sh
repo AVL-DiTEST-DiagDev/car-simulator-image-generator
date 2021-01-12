@@ -13,20 +13,13 @@
 #           Tobias Jaehnel (tjaehnel@gmail.com)
 
 # Fake uname output
-cat > /usr/local/bin/uname << 'EOF'
-#!/bin/bash
-if [ "$1" == "-r" ]
-then
+KERNEL_VERSION=$(
     # just respond with the last v7 kernel version found
     cd /lib/modules
     ls -d *-v7+ | tail -1
-elif [ "$1" == "-m" ]
-then
-    echo "arm7"
-fi
-EOF
-
-chmod +x /usr/local/bin/uname
+)
+KERNEL_ARCHITECTURE="arm7"
+/tmp/create_fake_uname.sh $KERNEL_VERSION $KERNEL_ARCHITECTURE
 
 echo "______________________________________________________________________________"
 echo ""
@@ -44,4 +37,4 @@ sudo depmod $(uname -r)
 #sudo modprobe can-isotp
 
 # remove uname fake
-rm -f /usr/local/bin/uname
+/tmp/remove_fake_uname.sh
