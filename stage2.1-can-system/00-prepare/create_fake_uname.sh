@@ -19,4 +19,6 @@ cat >> $UNAME_EXECUTABLE << EOF
 fi
 EOF
 
+cat $UNAME_EXECUTABLE
+
 chmod +x $UNAME_EXECUTABLE
