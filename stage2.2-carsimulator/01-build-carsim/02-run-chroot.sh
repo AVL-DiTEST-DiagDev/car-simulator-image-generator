@@ -45,11 +45,3 @@ make
 mkdir -p dist/Debug/GNU-Linux/lua_config
 cp "example luas/example.lua"  dist/Debug/GNU-Linux/lua_config/example.lua
 chown -R pi dist/Debug/GNU-Linux/lua_config
-# for all lua functions check
-# README:md in the main folder
-# run the car-simulator
-# /dist/Debug/GNU-Linux/amos-ss17-proj4 can0
-
-# Link CarSimulator from it's "old" location such that the carsim commandline tool can find it.
-mkdir -p /home/pi/Desktop/car-simulator
-ln -s /opt/car-simulator /home/pi/Desktop/car-simulator/car-simulator
