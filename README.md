@@ -1,3 +1,63 @@
+# CarSimulator Image builder
+
+This tool builds a ready to flash Raspberry Pi image containing the carsimulator.org software.
+It is based on the pi-gen (https://github.com/RPi-Distro/pi-gen) tool to create Raspberry Pi OS images and adds CarSimulator on top of the *minimal* image.
+
+Please find the official pi-gen documentation below. The CarSimulator extensions reside in the *stage2.x* directories.
+
+## Build
+Create a file named *config* in the root of that repository to specify the image name and optionally disable ZIPing of the final image:
+```bash
+echo "IMG_NAME='carsimulator.org'" > config
+echo "DEPLOY_ZIP=0" >> config
+```
+
+Then run the build using docker (recommended):
+```bash
+sudo ./build-docker.sh
+```
+
+Alternatively you can build on your system without docker, but that needs several dependencies to be installed and runs only on a few Debian-based distributions. See the official documentation below for more information.
+
+```bash
+sudo ./build.sh
+```
+
+Once the build is done, you will find your ready to flash image in the folder ''deploy''.
+
+## CarSimulator build stages
+
+Note that unlike the official pi-gen this generated only one image. That one is based on the minimal Raspberry Pi OS image with CarSimulator software added. Subsequent build stages are skipped in that repository.
+
+If you need the Raspberry Pi OS GUI etc., you have to remove the *SKIP* and *SKIP_IMAGES* files from subsequent stages (Note that this has not been tested.).
+
+For information regarding how stages work see the official documentation below.
+
+CarSimulator adds the following Stages
+### stage2.1-can-system
+This stage installs the kernel modules for ISO-TP and J1939. Furthermore it configures the Hardware for one particular Pi CAN HAT. To adapt this to your particular Hardware, look at *10-enable-can-hardware* (more information see below).
+
+This stage also configures the can network interfaces. The place to configure the baudrate or enable vcan is at *11-enable-can-interfaces*.
+
+### stage2.2-carsimulator
+This stage actually builds and installs the CarSimulator. It registers the services, installs the discovery service and adds a few files to ensure compatibility with the commandline client.
+
+## Adapt the image to your Hardware
+You very likely will need to adapt the image to your specific Hardware. This is easily done by editing the following files:
+
+### Change Pi HW configuration for a differen CAN Shield
+The Pi CAN HAT you are using usually needs specific configuration in the *config.txt* on the boot partition. This configuration might even vary depending on the Raspberry Pi version.
+You can either build the image first, flash it to an SD and then edit the file with your PC. Or you can modify the configuration directly during the build.
+
+The file [fstage2.1-can-system/10-enable-can-hardware/01-run-chroot.sh](stage2.1-can-system/10-enable-can-hardware/01-run-chroot.sh) takes care of creating the *config.txt* file. Simply modify it to fit your Hardware.
+
+### Change interface configuration
+You might want to change the baudrate of you CAN interfaces, adapt the count of interfaces to your CAN hardware or add virtual CAN busses.
+
+All that can be done in the file [stage2.1-can-system/11-enable-can-interfaces/01-run-chroot.sh](stage2.1-can-system/11-enable-can-interfaces/01-run-chroot.sh).
+
+**NOTE:** The carsimulator runs one process per CAN interface. If you added or removed interfaces, you also have to add/remove *systemctl enable ...* lines in [stage2.2-carsimulator/02-install-carsim/01-run-chroot.sh](stage2.2-carsimulator/02-install-carsim/01-run-chroot.sh) as well.
+
 # pi-gen
 
 Tool used to create Raspberry Pi OS images. (Previously known as Raspbian).
