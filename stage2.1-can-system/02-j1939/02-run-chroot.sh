@@ -12,7 +12,7 @@ echo "-- update rpi-source --"
 # Avoiding the upgrader integrated in rpi-source as it make Github API calls which are limited to 60/hour by Github
 wget https://raw.githubusercontent.com/RPi-Distro/rpi-source/master/rpi-source -O $(type -p rpi-source)
 echo "-- download kernel source --"
-rpi-source --skip-update --download-only --dest /root --processor 0
+rpi-source --skip-update --download-only --default-config --dest /root --processor 0
 
 # Run the build for all available arm7 and arm7l kernels
 
