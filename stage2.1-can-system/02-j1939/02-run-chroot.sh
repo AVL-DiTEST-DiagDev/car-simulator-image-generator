@@ -5,11 +5,10 @@ echo ""
 echo "			Compile and install J1939 Module from the Kernel Sources  "
 echo ""
 
-echo "-- get kernel source --"
-cd /root
 echo "-- update rpi-source --"
 # Manually upgading rpi-source as at the time of writing the packaged version did not support --download-only
 # Avoiding the upgrader integrated in rpi-source as it make Github API calls which are limited to 60/hour by Github
+cd /root
 wget https://raw.githubusercontent.com/RPi-Distro/rpi-source/master/rpi-source -O $(type -p rpi-source)
 echo "-- download kernel source --"
 rpi-source --skip-update --download-only --default-config --dest /root --processor 0
@@ -19,6 +18,9 @@ rpi-source --skip-update --download-only --default-config --dest /root --process
 PROCESSORS_VERSION=(v7 v7l)
 PROCESSORS_RPISOURCE_PARAMETER=(2 3)
 PROCESSORS_ARCH=(arm7 arm7l)
+
+rm -rf /opt/linux-*
+rm -f /opt/linux
 
 for procIndex in "${!PROCESSORS_VERSION[@]}"
 do
