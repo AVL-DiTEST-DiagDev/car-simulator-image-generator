@@ -40,8 +40,3 @@ EOF
 
 # make car-simulator
 make
-
-# place this file into /dist/Debug/GNU-Linux/lua_config/
-mkdir -p dist/Debug/GNU-Linux/lua_config
-cp "example luas/example.lua"  dist/Debug/GNU-Linux/lua_config/example.lua
-chown -R pi dist/Debug/GNU-Linux/lua_config
