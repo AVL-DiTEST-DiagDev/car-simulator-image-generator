@@ -1,8 +1,7 @@
 #!/bin/bash -e
 # ------------
-# NOTE: The ISO-TP module is part of the linux kernel from 5.10
-#       So once Raspberry Pi OS upgrades to that kernel version
-#       the build process will change or is not even necessary anymore
+# NOTE: The ISO-TP module is part of the linux kernel from 5.10!
+#       Therefore this build process is not necessary anymore
 #
 # compile and install ISO-TP from hartkopp (Volkswagen AG)
 # Linux Kernel Module for ISO 15765-2:2016 CAN transport protocol 
