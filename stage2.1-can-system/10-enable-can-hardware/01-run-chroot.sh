@@ -26,10 +26,10 @@ sudo bash -c 'cat << EOF >> /boot/config.txt
 #   GPIO 24 Rx-IRQ
 #
 # Syntax for Raspberry 2
-#dtoverlay=mcp2515-can1-overlay,oscillator=20000000,interrupt=24
-#dtoverlay=mcp2515-can0-overlay,oscillator=20000000,interrupt=25
+#dtoverlay=mcp2515-can1-overlay,oscillator=16000000,interrupt=24
+#dtoverlay=mcp2515-can0-overlay,oscillator=16000000,interrupt=25
 # Syntax for Raspberry 3
-dtoverlay=mcp2515-can1,oscillator=20000000,interrupt=24
-dtoverlay=mcp2515-can0,oscillator=20000000,interrupt=25
+dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=24
+dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
 dtoverlay=spi-bcm2835-overlay
 EOF'
