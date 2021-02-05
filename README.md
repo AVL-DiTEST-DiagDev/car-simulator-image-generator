@@ -58,6 +58,14 @@ All that can be done in the file [stage2.1-can-system/11-enable-can-interfaces/0
 
 **NOTE:** The carsimulator runs one process per CAN interface. If you added or removed interfaces, you also have to add/remove *systemctl enable ...* lines in [stage2.2-carsimulator/02-install-carsim/01-run-chroot.sh](stage2.2-carsimulator/02-install-carsim/01-run-chroot.sh) as well.
 
+### Add lua ECU configuration files
+If you want to pre-build the image with a default set of lua configuration files, simply put them into [stage2.2-carsimulator/lua_config](stage2.2-carsimulator/lua_config) and remove the default *example.lua*.
+
+### Change car simulator source/version
+By default this builds the latest car simulator from the default source repository branch.
+
+If you want to build form another branch, tag or repository, change the *git clone* command in [stage2.2-carsimulator/01-build-carsim/02-run-chroot.sh](stage2.2-carsimulator/01-build-carsim/02-run-chroot.sh)
+
 # pi-gen
 
 Tool used to create Raspberry Pi OS images. (Previously known as Raspbian).
