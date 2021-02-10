@@ -60,10 +60,8 @@ do
         make M=net/can/j1939 modules modules_install
         depmod $(uname -r)
 
-        echo "uname -r"
-        uname -r
-        echo "uname -m"
-        uname -m
+        echo "-- Copy new can.h with J1939 to the system include path --"
+        cp /opt/linux/include/uapi/linux/can.h /usr/include/linux/can.h
 
         rm -rf /opt/linux-*
         rm -f /opt/linux
