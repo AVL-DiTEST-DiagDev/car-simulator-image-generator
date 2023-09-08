@@ -2,3 +2,5 @@ lua5.2
 liblua5.2
 liblua5.2-dev
 vim
+libgtest-dev
+libsocketcan-dev
