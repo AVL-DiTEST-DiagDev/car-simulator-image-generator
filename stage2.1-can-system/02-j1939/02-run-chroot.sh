@@ -9,7 +9,7 @@ echo "-- update rpi-source --"
 # Manually upgading rpi-source as at the time of writing the packaged version did not support --download-only
 # Avoiding the upgrader integrated in rpi-source as it make Github API calls which are limited to 60/hour by Github
 cd /root
-wget https://raw.githubusercontent.com/RPi-Distro/rpi-source/master/rpi-source -O $(type -p rpi-source)
+wget https://raw.githubusercontent.com/RPi-Distro/rpi-source/e2908c936e627fe6ef1fb375c9dc8b56e2751d59/rpi-source -O $(type -p rpi-source)
 echo "-- download kernel source --"
 rpi-source --skip-update --download-only --default-config --dest /root --processor 0
 
