@@ -1,0 +1,23 @@
+name: Build and deploy CarSimulator image
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      
+      - name: Prepare config
+        run: |
+          echo "IMG_NAME='carsimulator.org'" > config
+          echo "DEPLOY_ZIP=0" >> config
+          echo "CONTAINER_NAME=carsim-build-${{ github.event.pull_request.head.sha }}" >> config
+      
+      - name: Run image build
+        run: ./build-docker.sh
+
